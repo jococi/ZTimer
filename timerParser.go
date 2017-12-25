@@ -80,11 +80,15 @@ func AtTime(timeFmt string, loc *time.Location) (*time.Time, error) {
 func Parser(dateFmt string) (*time.Time, error) {
 	// 默认使用上海时区
 
-	loc, err := time.LoadLocation(LocationFormat)
-	if err!=nil {
-		return nil,err
+	if LocationFormat!="" {
+		loc, err := time.LoadLocation(LocationFormat)
+		if err!=nil {
+			return nil,err
+		}
+		return ParserLoc(dateFmt, loc)
+	}else{
+		return ParserLoc(dateFmt, time.Local)
 	}
-	return ParserLoc(dateFmt, loc)
 }
 
 //// 带有时区的分析体系

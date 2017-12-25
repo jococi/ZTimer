@@ -25,9 +25,10 @@ var CDebugMode bool = false
 var UseAsyncExec bool = true
 
 // 默认的通用时区字符串，通过修改他会更改分析后的日期结果
-// 默认为上海时区
-var LocationFormat = "Asia/Shanghai"
+// 默认为time.Local
+//var LocationFormat = "Asia/Shanghai"
 
+var LocationFormat = ""
 type GrapeScheduler struct {
 	done chan bool // 是否关闭
 
@@ -85,7 +86,7 @@ func (c *GrapeScheduler) StopTimer(Id int) {
 	}
 }
 
-// 停止这个timer
+// 重新计时这个timer
 func (c *GrapeScheduler) ResetTimer(Id int) {
 	c.listLocker.Lock()
 	defer c.listLocker.Unlock()
